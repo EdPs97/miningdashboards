@@ -25,4 +25,20 @@ As mentioned before the idea was to publish this Dashboard within our organizati
 
 
 Final result 
-The dashboard allows users to navigate through Mine, Crushing and the Processing Plant values. The main page can be filtered by month or quarter and sums up data in three columns: To-Date compliance, trend and production adjustments to meet targets (except for ounces which shows the amount of ounces left to extract in the given period). 
+The dashboard allows users to navigate through Mine, Crushing and the Processing Plant and mining equipment mechanical availability values. The main page can be filtered by month or quarter and sums up data in three columns: To-Date compliance, trend and production adjustments to meet targets (except for ounces which shows the amount of ounces left to extract in the given period). The trend is represented by a triangle and an equal sign; the logic behind is straightforward: the triangle will point upwards and will be green if the last actual value is 5% greater than its predecessor and will be painted red point downwards anytime where the value is less than 5% than its predecessor. The equal sign will appear if the new value remaains within that -+5%. 
+
+This gives you a insight on the overall performance, however if the user is interested in the values depicted for a certain variable they can click on it and the report will take them to another page that contains detailed information. 
+
+
+*Image of the main page 
+
+
+Each variable has its own report that depicts the following: a line plot with the actual value, the moving average (7 days) and the target, the cummulative compliance encircled by colored ring, the last moving average value, the moving average projection supposing the last moving average value mantains through the rest of the month/quarter, the final target value in the month or quarter, the projected compliance in percentage and the production adjustment which refer to the value that should be achieved daily so that we can reach the monthly/quarterly goal. 
+
+
+*Image of both reports 
+
+
+
+Comments 
+With this implementation directors and managers can have a quick view of the production performance, how far or close we are to our targets and what would it take to meet our goals. The simplicity works because it can help to answer the most recurrent questions in an executive circle. The migration to BI tools did not compromise the reliability of the data presented since it comes from our official source of information. The granularity of the Dashboard might seemed limited for the operational eye, however, increasing it would not be an option since the scope of the dashboard is limited to the main users interests. The operational details were covered using different tools such as PiSystem. If interested you can check the work on real-time dashboards and analysis on this repository: *include the repository on pisystem 
