@@ -74,6 +74,8 @@ This ensured consistent access across departments without manual intervention.
 * ▼ Red triangle → > 5% decrease
 * = Equal sign → variation within ±5%
 
+![Main Dashboard](MainReport_Mine_Section.png)
+
 ### Drill-Down Pages
 
 * Detailed views for **Mine, Crushing, Processing Plant, and Equipment Availability**.
