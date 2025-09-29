@@ -89,6 +89,7 @@ This ensured consistent access across departments without manual intervention.
   * Projected performance if trends continue
   * Final target for the period
   * Adjustments required to reach the target
+    
 ![Main Dashboard](images/DrillDown_Stacking.png)
 ---
 
