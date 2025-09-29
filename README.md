@@ -18,6 +18,8 @@ Managers traditionally monitored daily production using **SIREP**, a corporate p
 
 SIREP remained the **official corporate data source**, ensuring reliability but limiting usability. My role was to guarantee that reported data aligned with SIREP’s accuracy.
 
+![Main Dashboard](SIREP.png)
+
 ---
 
 ## 2. Solution & Approach
