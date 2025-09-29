@@ -18,7 +18,7 @@ Managers traditionally monitored daily production using **SIREP**, a corporate p
 
 SIREP remained the **official corporate data source**, ensuring reliability but limiting usability. My role was to guarantee that reported data aligned with SIREP’s accuracy.
 
-![Main Dashboard](SIREP.png)
+![Main Dashboard](images/SIREP.png)
 
 ---
 
@@ -76,7 +76,7 @@ This ensured consistent access across departments without manual intervention.
 * ▼ Red triangle → > 5% decrease
 * = Equal sign → variation within ±5%
 
-![Main Dashboard](MainReport_MineSection.png)
+![Main Dashboard](images/MainReport_MineSection.png)
 
 ### Drill-Down Pages
 
@@ -89,7 +89,7 @@ This ensured consistent access across departments without manual intervention.
   * Projected performance if trends continue
   * Final target for the period
   * Adjustments required to reach the target
-
+![Main Dashboard](images/DrillDown_Stacking.png)
 ---
 
 ## 6. Final Results & Impact
