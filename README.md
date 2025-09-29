@@ -97,6 +97,7 @@ This ensured consistent access across departments without manual intervention.
 * Directors and managers gained a **quick, reliable overview** of production performance.
 * Simplified identification of **adjustments needed to meet goals**.
 * Confidence in **data integrity** since the dashboard is fully based on the corporate source.
+* Users can add meeting minutes and comments directly through an integrated Power Apps button, ensuring decisions and context are captured within the dashboard.
 
 The scope was intentionally **executive-focused**, leaving real-time and highly detailed monitoring to operational tools like **Pi System**.
 
