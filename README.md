@@ -1,4 +1,3 @@
-# miningdashboards
 # Mining Dashboards
 
 During my year and a half in the Operational Excellence Department, one of my responsibilities was to create tools that allowed the Operational Director and the Operational Excellence Team to monitor production compliance.
