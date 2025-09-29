@@ -74,7 +74,7 @@ This ensured consistent access across departments without manual intervention.
 * ▼ Red triangle → > 5% decrease
 * = Equal sign → variation within ±5%
 
-![Main Dashboard](MainReport_Mine_Section.png)
+![Main Dashboard](MainReport_MineSection.png)
 
 ### Drill-Down Pages
 
