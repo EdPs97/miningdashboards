@@ -1,0 +1,159 @@
+/*Moving average calculation*/ 
+
+DEFINE
+    MEASURE '-Measure Table-'[Auadsorbido_Real_Mavg] = VAR _Day = 
+CALCULATE(
+    MAX(
+        'Date Table'[Date]),
+        LASTNONBLANK( 
+            'Date Table'[Date], 
+            [Auadsorbido_Real_Oz]
+        )
+)
+
+VAR _number = 7
+
+VAR _Period = 
+FILTER(
+    ALL('Date Table'), 
+    'Date Table'[Date] > _Day - _number && 
+    'Date Table'[Date] <= _Day 
+)
+
+VAR _Moving = 
+CALCULATE(
+    AVERAGEX(
+        'Date Table',
+        [Auadsorbido_Real_Oz]), 
+        _Period
+)
+
+RETURN _Moving
+
+
+
+
+
+/*Monthly production adjustment*/ 
+
+DEFINE
+    MEASURE '-Measure Table-'[Stacking_fcst_AjusteMensual] = VAR _Fecha = 
+[LastNonBlank]
+
+
+
+VAR _Ajuste = 
+
+IF([DaysLeftMonth] = 0 , "", 
+DIVIDE( 
+    [Stacking_fcst_Ton] - [Stacking_Real_MTD_Qty],
+    [DaysLeftMonth]
+)
+)
+
+
+RETURN IF(
+    _Ajuste<0, "Objetivo alcanzado", _Ajuste
+)
+
+
+
+
+
+
+
+
+
+/*Date table creation*/ 
+
+
+Date Table = 
+VAR MinYear = YEAR(MIN('SIREP - Real'[fecha]))
+VAR MaxYear = YEAR(MAX('SIREP - Real'[fecha]))
+
+RETURN
+ADDCOLUMNS(
+    FILTER(
+        CALENDARAUTO(),
+        YEAR([Date]) >= MinYear &&
+        YEAR([Date]) <= MaxYear 
+    ),
+    "Year", YEAR([Date]),
+    "Quarter number", INT(FORMAT([Date],"q")),
+    "Quarter", "Q" & INT(FORMAT([Date],"q")), 
+    "Month number", MONTH([Date]),
+    "Month short", FORMAT([Date],"mmm"),
+    "Week number", WEEKNUM([Date]),
+    "MonthX2", 
+IF(
+    [Date] < DATE(2025,01,30), 
+    FORMAT([Date], "mmmm"),
+    IF(
+        AND([Date] >= DATE(2025,01,30), [Date] < DATE(2025,03,01)), 
+        "February", 
+        IF(
+            [Date] < DATE(2025,04,01), 
+            "March", 
+            IF(
+                AND([Date]>=DATE(2025,05,31), [Date]<=DATE(2025,06,30)),
+                "June",
+                BLANK()
+        )
+        )
+    )
+),
+
+"MonthX1", 
+IF(
+    OR([Date] < DATE(2025,01,30), [Date] > DATE(2025,12,30)), 
+    BLANK(), 
+    IF(
+        AND([Date] > DATE(2025,03,31), [Date] < DATE(2025,12,31)), 
+        FORMAT([Date] + 1, "mmmm"), 
+        BLANK()
+    )
+)
+)
+
+
+
+
+/*Triangle trends*/ 
+
+DEFINE
+    MEASURE '-Measure Table-'[Esteril_trend] = VAR _lastValidDiff = 
+    CALCULATE(
+        LASTNONBLANK( 
+            'Date Table'[Date], 
+            IF( NOT(ISBLANK([Esteril_Real_Mavg])),1) 
+        )
+    )
+VAR _Prev = 
+CALCULATE( 
+    [Esteril_Real_Mavg], 
+    'Date Table'[Date] = _lastValidDiff - 1 
+) 
+
+VAR _mav = 
+CALCULATE( 
+    [Esteril_Real_Mavg], 
+    'Date Table'[Date] = _lastValidDiff)
+
+VAR _diff = DIVIDE(_mav - _Prev,_mav) 
+
+
+VAR _code = 
+IF(_diff<-0.05, -1, IF(_diff >0.05,1,0 ) 
+) 
+
+RETURN _code
+
+
+DEFINE
+    MEASURE '-Measure Table-'[Esteril_trend_triangle] = IF(
+    [Esteril_trend] = 1 , 
+    UNICHAR(9650),  -- ▲ Green Triangle (Up)
+   IF([Esteril_trend] = 0, UNICHAR(61), 
+    UNICHAR(9660)   -- ▼ Red Triangle (Down)
+)
+)

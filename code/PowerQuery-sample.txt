@@ -1,0 +1,28 @@
+let
+    Source = Sql.Database("10.1.10.30", "mansfield2", [Query="use mansfield2#(lf)select #(lf)#(tab)variable_id, #(lf)#(tab)data.fecha,#(lf)#(tab)subcategoria.descripcion,#(lf)#(tab)variable.nombre,#(lf)#(tab)data.valor,#(lf)#(tab)variable.descripcion#(lf)#(lf)from data#(lf)#(tab)left join variable #(lf)#(tab)#(tab)on data.variable_id= variable.id#(lf)#(tab)#(tab)left join subcategoria#(lf)#(tab)#(tab)#(tab)on variable.subcategoria_id = subcategoria.id#(lf)where #(lf)data.fecha >= '2025-01-01' and #(lf)variable.descripcion <> '02cparametro 09' and #(lf)variable.descripcion <>'05cparametro 60' and #(lf)variable.descripcion <> '08cparametro 12' and   #(lf)variable.descripcion <> '11cparametro 14' and #(lf)variable.descripcion <> '14cparametro 68' and #(lf)variable.descripcion <> '17cparametro 70' #(lf)#(lf)order by fecha asc"]),
+    #"Changed Type" = Table.TransformColumnTypes(Source,{{"fecha", type date}, {"variable_id", type text}}),
+    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"descripcion2", "descripcion", "nombre"}),
+    #"Columna dinamizada" = Table.Pivot(#"Removed Columns", List.Distinct(#"Removed Columns"[variable_id]), "variable_id", "valor", List.Sum),
+    #"Personalizada agregada" = Table.AddColumn(#"Columna dinamizada", "Gramos triturados", each [10004] * [10005]),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Personalizada agregada",{{"Gramos triturados", type number}}),
+    #"Added Custom1" = Table.AddColumn(#"Changed Type1", "Gramos minados", each [10088] * [10089]),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom1",{{"Gramos minados", type number}}),
+    #"Personalizada agregada1" = Table.AddColumn(#"Changed Type2", "Onzas tratadas PLS", each [10052] * [10051]),
+    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"Onzas tratadas PLS", type number}}),
+    #"Personalizada agregada2" = Table.AddColumn(#"Tipo cambiado1", "Onzas tratadas BLS ", each [10052]*[10050]),
+    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada2",{{"Onzas tratadas BLS ", type number}}),
+    #"Personalizada agregada3" = Table.AddColumn(#"Tipo cambiado", "Gramos HPGR", each [10010] * [10011]),
+    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Personalizada agregada3",{{"Gramos HPGR", type number}}),
+    #"Personalizada agregada4" = Table.AddColumn(#"Tipo cambiado2", "Aux_P80", each [10012] * [10011]),
+    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Personalizada agregada4",{{"Aux_P80", type number}}),
+    #"Personalizada agregada5" = Table.AddColumn(#"Tipo cambiado3", "Au_adsorbido", each ([10052] * ([10051]-[10050]))/31.1035),
+    #"Tipo cambiado4" = Table.TransformColumnTypes(#"Personalizada agregada5",{{"Au_adsorbido", type number}}),
+    #"Personalizada agregada6" = Table.AddColumn(#"Tipo cambiado4", "Gramos_PLS_ILS", each [10052]*[10051]),
+    #"Tipo cambiado5" = Table.TransformColumnTypes(#"Personalizada agregada6",{{"Gramos_PLS_ILS", type number}}),
+    #"Personalizada agregada7" = Table.AddColumn(#"Tipo cambiado5", "Gramos_BLS", each [10052]*[10050]),
+    #"Tipo cambiado6" = Table.TransformColumnTypes(#"Personalizada agregada7",{{"Gramos_BLS", type number}}),
+    #"Rounded Off" = Table.TransformColumns(#"Tipo cambiado6",{{"10004", each Number.Round(_, 2), type number}})
+in
+    #"Rounded Off"
+
+

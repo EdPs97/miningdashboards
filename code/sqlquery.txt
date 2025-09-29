@@ -1,0 +1,15 @@
+use mansfield2
+select 
+	variable_id, 
+	data.fecha,
+	subcategoria.descripcion,
+	variable.nombre,
+	data.valor,
+        export
+
+from data
+	left join variable 
+		on data.variable_id= variable.id
+		left join subcategoria
+			on variable.subcategoria_id = subcategoria.id
+where data.fecha >= '2025-01-01' and data.fecha <= '2025-12-31' 
