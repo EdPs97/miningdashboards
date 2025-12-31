@@ -1,0 +1,9 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.wrapper header img {
+  max-width: 150px;   /* change to 120, 150, etc. */
+  height: auto;
+}
