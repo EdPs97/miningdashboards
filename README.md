@@ -106,7 +106,7 @@ The scope was intentionally executive-focused, leaving real-time and highly deta
 
 ## 7. Related Work
 
-👉 For real-time dashboards and process-level monitoring, see the repository on Pi System ([View repository]https://edps97.github.io/pisystem-in-mining/).
+👉 For real-time dashboards and process-level monitoring, see the repository on Pi System [View repository](https://edps97.github.io/pisystem-in-mining/).
 
 ---
 
