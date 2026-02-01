@@ -1,3 +1,5 @@
+Author: Eduardo Perez Sangabriel
+
 let
     Source = Sql.Database("10.1.10.30", "mansfield2", [Query="use mansfield2#(lf)select #(lf)#(tab)variable_id, #(lf)#(tab)data.fecha,#(lf)#(tab)subcategoria.descripcion,#(lf)#(tab)variable.nombre,#(lf)#(tab)data.valor,#(lf)#(tab)variable.descripcion#(lf)#(lf)from data#(lf)#(tab)left join variable #(lf)#(tab)#(tab)on data.variable_id= variable.id#(lf)#(tab)#(tab)left join subcategoria#(lf)#(tab)#(tab)#(tab)on variable.subcategoria_id = subcategoria.id#(lf)where #(lf)data.fecha >= '2025-01-01' and #(lf)variable.descripcion <> '02cparametro 09' and #(lf)variable.descripcion <>'05cparametro 60' and #(lf)variable.descripcion <> '08cparametro 12' and   #(lf)variable.descripcion <> '11cparametro 14' and #(lf)variable.descripcion <> '14cparametro 68' and #(lf)variable.descripcion <> '17cparametro 70' #(lf)#(lf)order by fecha asc"]),
     #"Changed Type" = Table.TransformColumnTypes(Source,{{"fecha", type date}, {"variable_id", type text}}),
@@ -24,5 +26,6 @@ let
     #"Rounded Off" = Table.TransformColumns(#"Tipo cambiado6",{{"10004", each Number.Round(_, 2), type number}})
 in
     #"Rounded Off"
+
 
 
